@@ -1,11 +1,15 @@
 import dbus
+import os
 
+TSPIKE = 0
+WAVE = 1
+RAW = 2
 
 class SomaManager:
     
     def __init__(self, soma_ip, data_dir):
         # start the recorder manager, if it is not already started
-        dbus_addr = self.__get_dbus_session_bus_address
+        dbus_addr = self.__get_dbus_session_bus_address()
         os.system("soma-recorder-manager --soma-ip %s --expdir %s --dbus %s" %
                             (soma_ip, data_dir, dbus_addr))
         
@@ -14,7 +18,7 @@ class SomaManager:
         
         # set up the recorder dbus interface
         self.recorder = RecorderProxy(self.bus) 
-        return
+        
 
     def __get_dbus_session_bus_address(self):
         return (os.popen("echo $DBUS_SESSION_ADDRESS")).read()
@@ -24,7 +28,6 @@ class RecorderProxy:
     
     available_experiments = property(_get_available_experiments)
     open_experiments = property(_get_open_experiments)
-    
     
     def __init__(self, bus):
         self.bus = bus
@@ -82,16 +85,42 @@ class EpochProxy:
     
     is_recording = property(_get_is_recording)
     
-    def __init__(self, bus, unique_id):
+    def __init__(self, bus, exp_id, epoch_path):
         self.bus = bus
-        dbus_proxy = bus.get_object(unique_id, "/soma/recording/experiment")
-        self.dbus_interface = dbus.interface(dbus_proxy, "soma.recording.Epoch")
+        dbus_proxy = bus.get_object(exp_id, epoch_path)
+        self.dbus_interface = dbus.Interface(dbus_proxy, "soma.recording.Epoch")
     
     def start_recording(self):
         self.dbus_interface.StartRecording()
         
-    def stop_recorder(self):    
+    def stop_recording(self):    
         self.dbus_interface.StopRecording()
+    
+    def enable_tspike_src(self, src_id):
+        self.dbus_interface.EnableDataSink(src_id, TSPIKE)
+
+    def disable_tspike_src(self, src_id):
+        self.dbus_interface.DisableDataSink(src_id, TSPIKE)
+
+    def enable_wave_src(self, src_id):
+        self.dbus_interface.EnableDataSink(src_id, WAVE)
+
+    def disable_wave_src(self, src_id):
+        self.dbus_interface.DisableDataSink(src_id, WAVE)
+
+    def enable_raw_src(self, src_id):
+        self.dbus_interface.EnableDataSink(src_id, RAW)
+
+    def disable_raw_src(self, src_id):
+        self.dbus_interface.DisableDataSink(src_id, RAW)
+    
+    def enable_all_srcs(self, n_channels):
+        for i in range(0, n_channels):
+            self.enable_tspike_src(i)
+            self.enable_wave_src(i)
+            self.enable_raw_src(i)
+    
     
     def _get_is_recording(self):
         return self.dbus_interface.GetRecordingState()
+        
