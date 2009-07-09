@@ -20,7 +20,7 @@ def property(request, propstring):
     
     val = ""
     try:
-        val = eval("%s()" % propstring)
+        val = eval("%s(request)" % propstring)
     except Exception, e:
         print "unknown function %s" % propstring
     
@@ -31,11 +31,11 @@ def property(request, propstring):
     return HttpResponse(response_string)
 
 
-def os_version():
+def os_version(request):
     version = (os.popen("uname -smr")).read()
     return version
     
-def uptime():
+def uptime(request):
     fullstring = (os.popen("uptime")).read()
     m = re.search("up (.*?,.*?),", fullstring)
     g = m.groups()
@@ -48,16 +48,16 @@ def pkg_version(pkg):
         version = "Not installed"
     return version
     
-def somanetwork_version():
+def somanetwork_version(request):
     return pkg_version("somanetwork-1.0")
     
-def somadspio_version():
+def somadspio_version(request):
     return pkg_version("somadspio-1.0")
 
-def recorder_version():
+def recorder_version(request):
     return pkg_version("soma-recorder")
     
-def disk_free_space():
+def disk_free_space(request):
     df_output = (os.popen("df -h /")).read()
     m = re.search(".*?\n.*?\s+(.*?)\s+(.*?)\s+(.*?)\s+", df_output)
     g = m.groups()
@@ -65,5 +65,5 @@ def disk_free_space():
     print df_result
     return df_result
 
-def server_ip():
+def server_ip(request):
     ifconfig_output = (os.popen("ifconfig")).read()

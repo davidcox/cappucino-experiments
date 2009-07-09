@@ -25,5 +25,8 @@ urlpatterns = patterns('',
     
     # status ajax calls
     (r'^config/property/(.*)', 'config.views.property'),  # get the version number for something
-    (r'^.*', 'recorder.views.test_it_baby')
+    (r'^recorder/property/set_(.*)', 'recorder.views.set_property'),  # get the version number for something
+    (r'^recorder/property/(.*)', 'recorder.views.property'),  # get the version number for something
+    
+    #(r'^.*', 'recorder.views.test_it_baby')
 )

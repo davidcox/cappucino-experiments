@@ -29,6 +29,7 @@
 		5CAE98790FD83E4500F98478 /* yellow_check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellow_check.png; sourceTree = "<group>"; };
 		5CAE989C0FD84AC000F98478 /* StatusController.j */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj; path = StatusController.j; sourceTree = "<group>"; };
 		5CAE989E0FD85D0600F98478 /* AjaxPropertyDispatcher.j */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj; name = AjaxPropertyDispatcher.j; path = Frameworks/AjaxPropertyDispatcher.j; sourceTree = "<group>"; };
+		5CF642720FE34D3900B7500E /* RecorderController.j */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj; path = RecorderController.j; sourceTree = "<group>"; };
 		641D44E00FD437FB00EACBFF /* Frameworks */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Frameworks; path = /usr/local/share/objj/lib/Frameworks; sourceTree = "<absolute>"; };
 		64200A490FD4250F005D41CE /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		64200A4A0FD4250F005D41CE /* main.j */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj; path = main.j; sourceTree = "<group>"; };
@@ -69,6 +70,7 @@
 				64200A4D0FD4250F005D41CE /* AppController.j */,
 				5CAE989C0FD84AC000F98478 /* StatusController.j */,
 				5CAE989E0FD85D0600F98478 /* AjaxPropertyDispatcher.j */,
+				5CF642720FE34D3900B7500E /* RecorderController.j */,
 			);
 			name = Classes;
 			sourceTree = "<group>";

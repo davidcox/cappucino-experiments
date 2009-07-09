@@ -79,13 +79,13 @@ class ExperimentProxy:
 
     def __init__(self, parent, bus, unique_id):
         self.bus = bus
-	self.parent = parent
-	self.unique_id = unique_id
+        self.parent = parent
+        self.unique_id = unique_id
         dbus_proxy = bus.get_object(unique_id, "/soma/recording/experiment")
         self.dbus_interface = dbus.Interface(dbus_proxy, "soma.recording.Experiment")
     
     def close(self):
-	self.dbus_interface.Close()
+        self.dbus_interface.Close()
 
     def create_epoch(self, name):
         self.dbus_interface.CreateEpoch(name)
@@ -112,7 +112,7 @@ class EpochProxy:
     
     def __init__(self, parent,bus, epoch_path):
         self.bus = bus
-	self.parent = parent
+        self.parent = parent
         dbus_proxy = bus.get_object(parent.unique_id, epoch_path)
         self.dbus_interface = dbus.Interface(dbus_proxy, "soma.recording.Epoch")
     
@@ -161,42 +161,42 @@ class EpochProxy:
     def _set_sink_name(self, src_id, name):
         self.dbus_interface.SetDataName(src_id, name)
 
-class DataSink:
-
-    def __init__(self, epoch, src_id):
-        self.parent = epoch
-        self.src_id = src_id
-
-    def _get_name(self):
-        self.parent._get_sink_name(self.src_id)
-
-    def _set_name(self, name):
-        self.parent._set_sink_name(self.src_id, name)
-
-    def enable_tspikes(self):
-        self.parent.enable_tspike_sink(self.src_id)
-
-    def disable_tspikes(self):
-        self.parent_disable_tspike_sink(self.src_id)
-
-    def enable_waves(self):
-        self.parent.enable_wave_sink(self.src_id)
-
-    def disable_waves(self):
-        self.parent.disable_wave_sink(self.src_id)
-
-    def enable_raw(self):
-        self.parent.enable_raw_sink(self.src_id)
-
-    def disable_raw(self):
-        self.parent.disable_raw_sink(self.src_id)
-
-    def _tspikes_enabled(self):
-        # TODO: would be better with better hooks
-        
-
-    name = property(_get_name, _set_name)
-        
+# class DataSink:
+# 
+#     def __init__(self, epoch, src_id):
+#         self.parent = epoch
+#         self.src_id = src_id
+# 
+#     def _get_name(self):
+#         self.parent._get_sink_name(self.src_id)
+# 
+#     def _set_name(self, name):
+#         self.parent._set_sink_name(self.src_id, name)
+# 
+#     def enable_tspikes(self):
+#         self.parent.enable_tspike_sink(self.src_id)
+# 
+#     def disable_tspikes(self):
+#         self.parent_disable_tspike_sink(self.src_id)
+# 
+#     def enable_waves(self):
+#         self.parent.enable_wave_sink(self.src_id)
+# 
+#     def disable_waves(self):
+#         self.parent.disable_wave_sink(self.src_id)
+# 
+#     def enable_raw(self):
+#         self.parent.enable_raw_sink(self.src_id)
+# 
+#     def disable_raw(self):
+#         self.parent.disable_raw_sink(self.src_id)
+# 
+#     def _tspikes_enabled(self):
+#         # TODO: would be better with better hooks
+#     
+# 
+#     name = property(_get_name, _set_name)
+#         
 
 if __name__ == '__main__':
 

@@ -21,6 +21,8 @@ var ConfigToolbarItemIdentifier = "ConfigToolbarItemIdentifier",
     CPView      statusView;
     CPView      mainContentView;
     CPMenu      mainMenu;
+    
+    
 }
 
 - (void)applicationDidFinishLaunching:(CPNotification)aNotification

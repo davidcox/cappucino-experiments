@@ -11,6 +11,7 @@
 
 @import "AppController.j"
 @import "StatusController.j"
+@import "RecorderController.j"
 
 CPLogRegister(CPLogPopup);
 
